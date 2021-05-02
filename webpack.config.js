@@ -33,29 +33,23 @@ module.exports = {
       {
         test: /\.(html)?$/,
         exclude: [
-          path.resolve(PATH.SRC, './index.dev.html')
+          path.resolve(PATH.SRC, './index.dev.html'),
+          path.resolve(PATH.SRC, './index.prod.html'),
         ],
         use: [
           {
-            loader: 'file-loader',
+            loader: 'html-loader',
             options: {
-              publicPath: '/templates',
-              outputPath: 'templates',
-              name: '[path][name].[ext]',
-            },
-          },
+              minimize: prod,
+            }
+          }
         ]
       },
       {
         test: /\.(scss)?$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/templates',
-              outputPath: 'templates',
-              name: '[path][name].[ext]',
-            },
+            loader: 'css-loader'
           },
           {
             loader: 'sass-loader'
@@ -72,10 +66,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: './styles/[name].css',
-      chunkFilename: '[id].css',
-    }),
     new HtmlWebpackPlugin({
       inject: 'body',
       template: 'src/index.dev.html',
@@ -88,9 +78,8 @@ module.exports = {
     filename: 'markdown-editor.min.js'
   },
   devtool: 'eval-cheap-source-map',
-  target: ['web', 'es5'],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+    minimizer: [new TerserPlugin()],
   },
 };

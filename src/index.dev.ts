@@ -1,2 +1,3 @@
 import './main.ts';
-import './modules/module';
+import './engines/component';
+import './components/app.component';

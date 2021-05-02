@@ -1,2 +1,9 @@
-declare module '*.html';
-declare module '*.scss';
+declare module '*.html' {
+  const url: string;
+  export = url;
+}
+
+declare module '*.scss' {
+  const url: string;
+  export = url;
+}
