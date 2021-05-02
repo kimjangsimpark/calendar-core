@@ -13,13 +13,15 @@ export function Component(metadata: Metadata): void {
   const E = metadata.extends || HTMLElement;
   console.log(E);
   const Class = class extends HTMLElement {
+    public shadow: ShadowRoot;
     public metadata: Metadata = metadata;
 
     constructor() {
       super();
-      this.innerHTML += metadata.template;
+      this.shadow = this.attachShadow({ mode: 'open' });
+      this.shadow.innerHTML += metadata.template;
       if (metadata.style) {
-        this.innerHTML += `<style>${metadata.style.toString()}</style>`;
+        this.shadow.innerHTML += `<style>${metadata.style.toString()}</style>`;
       }
     }
   };
