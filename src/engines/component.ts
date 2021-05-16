@@ -1,30 +1,34 @@
-export interface Metadata {
-  elementName: string;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+export type ClassConstructor = new (...args: any[]) => any;
+export interface Component {
+  selector: string;
   template: string;
   style?: string;
-  extends?: new (...args: any[]) => HTMLElement;
 }
 
-export interface Lifecycle {
-  onMount: () => void;
-}
-
-export function Component(metadata: Metadata): void {
-  const E = metadata.extends || HTMLElement;
-  console.log(E);
-  const Class = class extends HTMLElement {
-    public shadow: ShadowRoot;
-    public metadata: Metadata = metadata;
-
-    constructor() {
-      super();
-      this.shadow = this.attachShadow({ mode: 'open' });
-      this.shadow.innerHTML += metadata.template;
-      if (metadata.style) {
-        this.shadow.innerHTML += `<style>${metadata.style.toString()}</style>`;
+/**
+ * lifecycle 데코레이터
+ */
+export function Component<T extends ClassConstructor>(
+  params: Component
+): (constructor: T) => void {
+  return function (constructor: T) {
+    customElements.define(
+      params.selector,
+      class extends HTMLElement {
+        public constructor() {
+          super();
+          this.attachShadow({ mode: 'open' });
+          if (this.shadowRoot) {
+            this.shadowRoot.innerHTML += params.template;
+            if (params.style) {
+              this.shadowRoot.innerHTML += `<style>${params.style.toString()}</style>`;
+            }
+          }
+          console.log('constructed');
+        }
       }
-    }
+    );
   };
-
-  customElements.define(metadata.elementName, Class);
 }
