@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type ClassConstructor = new (...args: any[]) => any;
+export type ClassConstructor = new (...args: any[]) => HTMLElement;
+
+export interface Lifecycle {
+  onRendered?(): void;
+}
+
 export interface Component {
   selector: string;
   template: string;
@@ -10,14 +15,14 @@ export interface Component {
 /**
  * lifecycle 데코레이터
  */
-export function Component<T extends ClassConstructor>(
+export function Component(
   params: Component
-): (constructor: T) => void {
-  return function (constructor: T) {
+): (constructor: ClassConstructor) => void {
+  return function (constructor: ClassConstructor) {
     customElements.define(
       params.selector,
-      class extends HTMLElement {
-        public constructor() {
+      class extends constructor {
+        constructor() {
           super();
           this.attachShadow({ mode: 'open' });
           if (this.shadowRoot) {
@@ -26,9 +31,28 @@ export function Component<T extends ClassConstructor>(
               this.shadowRoot.innerHTML += `<style>${params.style.toString()}</style>`;
             }
           }
-          console.log('constructed');
+          if ((this as any).onRendered) {
+            (this as any).onRendered();
+          }
         }
-      }
+      },
     );
   };
 }
+
+
+      // class extends HTMLElement {
+      //   public instance = new constructor();
+
+      //   public constructor() {
+      //     super();
+      //     this.attachShadow({ mode: 'open' });
+      //     if (this.shadowRoot) {
+      //       this.shadowRoot.innerHTML += params.template;
+      //       if (params.style) {
+      //         this.shadowRoot.innerHTML += `<style>${params.style.toString()}</style>`;
+      //       }
+      //     }
+      //   }
+
+      // }

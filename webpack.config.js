@@ -62,7 +62,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   devServer: {
-    port: 9009,
+    port: 9010,
   },
   plugins: [
     new CleanWebpackPlugin(),
