@@ -11,8 +11,13 @@ import style from './kjsp-calendar.component.scss';
   style: style,
 })
 export class KJSPCalendarComponent extends HTMLElement implements Lifecycle {
-  @Autowired()
+  @Autowired(CalendarService)
   calendarService: CalendarService;
+
+  public constructor() {
+    super();
+    console.log(this.calendarService);
+  }
 
   onRendered(): void {
     console.log(this.shadowRoot);

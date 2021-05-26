@@ -1,3 +1,1 @@
-export class A {
-  getCalendarData(): void {}
-}
+export function getInjectableService() {}
