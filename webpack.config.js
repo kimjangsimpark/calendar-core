@@ -63,6 +63,7 @@ module.exports = {
   },
   devServer: {
     port: 9010,
+    host: '0.0.0.0',
   },
   plugins: [
     new CleanWebpackPlugin(),
