@@ -15,10 +15,10 @@ export class IndexComponent extends HTMLElement {
   public constructor(private readonly calendarService: CalendarService) {
     super();
     this.attachShadow({ mode: 'open' });
-    const $toolbar = new ToolbarComponent(this.calendarService);
-    this.shadowRoot.append($toolbar);
     this.shadowRoot.innerHTML += template;
     this.shadowRoot.innerHTML += `<style>${style.toString()}</style>`;
+    const $toolbar = new ToolbarComponent(this.calendarService);
+    this.shadowRoot.append($toolbar);
     const $calendar = this.shadowRoot.querySelector('#index');
     for (let i = 0; i < 7 * 5; i++) {
       const day = new DayComponent(this.calendarService);
@@ -27,6 +27,4 @@ export class IndexComponent extends HTMLElement {
       $calendar?.appendChild(day);
     }
   }
-
-  public connectedCallback(): void {}
 }
