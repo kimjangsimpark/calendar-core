@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type ClassConstructor = new (...args: any[]) => HTMLElement;
+export type ClassConstructor = new (...args: any[]) => Lifecycle;
 
-export interface Lifecycle {
-  onRendered?(): void;
+export interface OnRender {
+  onRender?(): void;
 }
+
+export interface Lifecycle extends OnRender, HTMLElement {}
 
 export interface Component {
   selector: string;
@@ -30,9 +33,6 @@ export function Component(
             if (params.style) {
               this.shadowRoot.innerHTML += `<style>${params.style.toString()}</style>`;
             }
-          }
-          if ((this as any).onRendered) {
-            (this as any).onRendered();
           }
         }
       }

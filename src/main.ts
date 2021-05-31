@@ -17,7 +17,7 @@ export class KJSPCalendar {
   }
 
   public render(): void {
-    const $index = document.createElement('calendar-index') as IndexComponent;
+    const $index = document.createElement('kjsp-index') as IndexComponent;
     this.$wrapper.append($index);
   }
 }
