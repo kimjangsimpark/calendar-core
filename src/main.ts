@@ -1,5 +1,6 @@
 import 'reflect-metadata';
-import { Autowired, Root } from './engines/injectable';
+import './components/index.component';
+import { Root } from './engines/injectable';
 import { IndexComponent } from './components/index.component';
 import { CalendarService } from './service/calendar.service';
 export const root = document.getElementById('root') as HTMLDivElement;
@@ -8,8 +9,9 @@ export const root = document.getElementById('root') as HTMLDivElement;
 export class KJSPCalendar {
   private readonly $wrapper: HTMLElement;
 
-  @Autowired()
-  private readonly calendarService: CalendarService;
+  private readonly calendarService: CalendarService = new CalendarService(
+    new Date()
+  );
 
   public constructor($wrapper: HTMLElement) {
     this.$wrapper = $wrapper;
@@ -17,7 +19,11 @@ export class KJSPCalendar {
   }
 
   public render(): void {
-    const $index = document.createElement('kjsp-index') as IndexComponent;
+    const Constructor = customElements.get('kjsp-index') as new (
+      service: CalendarService
+    ) => IndexComponent;
+
+    const $index = new Constructor(this.calendarService);
     this.$wrapper.append($index);
   }
 }
