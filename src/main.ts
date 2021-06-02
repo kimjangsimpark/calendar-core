@@ -2,19 +2,18 @@ import 'reflect-metadata';
 import './components/index.component';
 import { Root } from './engines/injectable';
 import { IndexComponent } from './components/index.component';
-import { CalendarService } from './service/calendar.service';
+import { CalendarOptions, CalendarService } from './service/calendar.service';
 export const root = document.getElementById('root') as HTMLDivElement;
 
 @Root()
 export class KJSPCalendar {
   private readonly $wrapper: HTMLElement;
 
-  private readonly calendarService: CalendarService = new CalendarService(
-    new Date()
-  );
+  private readonly calendarService: CalendarService;
 
-  public constructor($wrapper: HTMLElement) {
+  public constructor($wrapper: HTMLElement, options: CalendarOptions) {
     this.$wrapper = $wrapper;
+    this.calendarService = new CalendarService(options);
     this.render();
   }
 
@@ -28,5 +27,9 @@ export class KJSPCalendar {
   }
 }
 
-const instance = new KJSPCalendar(root);
-console.log(instance);
+const instance = new KJSPCalendar(root, {
+  selectedDate: new Date(),
+  onSelectedYearAndMonthChanged: (event) => {
+    console.log(event);
+  },
+});

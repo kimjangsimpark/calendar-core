@@ -13,6 +13,10 @@ export class ToolbarComponent extends CustomElement {
 
   public constructor(private readonly calendarService: CalendarService) {
     super();
+    calendarService.selectedYearAndMonth.subscribe((selectedDate) => {
+      const el = this.shadowRoot.querySelector('#current-year');
+      el.innerHTML = selectedDate.getFullYear().toString();
+    });
   }
 
   public connectedCallback(): void {

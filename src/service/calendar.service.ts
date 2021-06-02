@@ -1,14 +1,41 @@
-import { BehaviorSubject, Subject } from '../engines/observable';
+import { BehaviorSubject } from '../engines/observable';
+
+export interface CalendarOptions {
+  selectedDate?: Date;
+
+  onSelectedYearAndMonthChanged: (date: Date) => void;
+}
+
+export interface Schedule {
+  startDate: Date;
+  endDate: Date;
+  name: string;
+}
 
 export class CalendarService {
-  public currentDate = new Date();
-  public selectedDate = new BehaviorSubject(new Date());
+  public readonly currentDate = new Date();
 
-  public constructor(selectedDate?: Date) {
-    if (selectedDate) {
-      this.selectedDate.next(selectedDate);
+  public readonly selectedYearAndMonth: BehaviorSubject<Date> = new BehaviorSubject(
+    new Date()
+  );
+  public readonly selectedMonthSchedules: BehaviorSubject<
+    Schedule[]
+  > = new BehaviorSubject<Schedule[]>([]);
+
+  public constructor(options: CalendarOptions) {
+    if (options.selectedDate) {
+      this.selectedYearAndMonth.next(options.selectedDate);
     } else {
-      this.selectedDate.next(new Date());
+      this.selectedYearAndMonth.next(new Date());
     }
+    this.selectedYearAndMonth.subscribe((selectedDate) => {
+      if (options.onSelectedYearAndMonthChanged) {
+        options.onSelectedYearAndMonthChanged(selectedDate);
+      }
+    });
+  }
+
+  public setSchedules(schedules: Schedule[]): void {
+    this.selectedMonthSchedules.next(schedules);
   }
 }

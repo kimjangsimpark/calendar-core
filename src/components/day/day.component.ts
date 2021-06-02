@@ -18,7 +18,7 @@ export class DayComponent extends CustomElement {
 
   public constructor(private readonly calendarService: CalendarService) {
     super();
-    this.calendarService.selectedDate.subscribe((date) => {
+    this.calendarService.selectedYearAndMonth.subscribe((date) => {
       console.log(date);
     });
   }

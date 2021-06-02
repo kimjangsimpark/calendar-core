@@ -21,7 +21,7 @@ export class IndexComponent extends CustomElement {
     const $toolbar = new ToolbarComponent(this.calendarService);
     this.shadowRoot.append($toolbar);
     const $calendar = this.shadowRoot.querySelector('#index');
-    for (let i = 0; i < 7 * 5; i++) {
+    for (let i = 0; i < 7 * 6; i++) {
       const day = new DayComponent(this.calendarService);
       day.classList.add('day');
       day.setAttribute('index', i.toString());
