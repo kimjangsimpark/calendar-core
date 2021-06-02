@@ -78,7 +78,7 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'markdown-editor.min.js'
   },
-  devtool: 'eval-cheap-source-map',
+  devtool: 'inline-source-map',
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
