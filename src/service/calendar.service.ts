@@ -50,13 +50,13 @@ export class CalendarService {
   }
 
   public setSelectedYear(year: number): void {
-    const current = this.selectedYearAndMonth.getValue();
+    const current = new Date(this.selectedYearAndMonth.getValue().getTime());
     current.setFullYear(year);
     this.selectedYearAndMonth.next(current);
   }
 
   public setSelectedMonth(month: number): void {
-    const current = this.selectedYearAndMonth.getValue();
+    const current = new Date(this.selectedYearAndMonth.getValue().getTime());
     current.setMonth(month);
     this.selectedYearAndMonth.next(current);
   }

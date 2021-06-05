@@ -17,6 +17,7 @@ export enum DayComponentParams {
 export class DayComponent extends CustomElement {
   public day: Day;
   public index: number;
+  public date: Date;
 
   public static get observedAttributes(): DayComponentParams[] {
     return [DayComponentParams.INDEX, DayComponentParams.DAY];
@@ -25,7 +26,6 @@ export class DayComponent extends CustomElement {
   public constructor(private readonly calendarService: CalendarService) {
     super();
     this.calendarService.selectedYearAndMonth.subscribe((date) => {
-      console.log(date.getDay());
     });
   }
 
