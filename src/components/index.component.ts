@@ -8,6 +8,11 @@ import style from './index.component.scss';
 import { CalendarService } from '../service/calendar.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
+enum IndexComponentParams {
+  YEAR = 'year',
+  MONTH = 'month',
+}
+
 @Component({
   selector: 'kjsp-index',
   template: template,
@@ -15,17 +20,74 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 })
 export class IndexComponent extends CustomElement {
   public date = new Date();
+  public calendarService: CalendarService = new CalendarService();
 
-  public constructor(private readonly calendarService: CalendarService) {
+  public static get observedAttributes(): string[] {
+    return [IndexComponentParams.YEAR, IndexComponentParams.MONTH];
+  }
+
+  public constructor() {
     super();
     const $toolbar = new ToolbarComponent(this.calendarService);
-    this.shadowRoot.append($toolbar);
+    this.shadowRoot.prepend($toolbar);
+
     const $calendar = this.shadowRoot.querySelector('#index');
     for (let i = 0; i < 7 * 6; i++) {
       const day = new DayComponent(this.calendarService);
       day.classList.add('day');
       day.setAttribute('index', i.toString());
-      $calendar?.appendChild(day);
+      $calendar.appendChild(day);
     }
+
+    this.calendarService.selectedYearAndMonth.subscribe((date) => {
+      const event = new CustomEvent('yearAndMonthChange', {
+        detail: {
+          date: date,
+        },
+        composed: true,
+      });
+      this.dispatchEvent(event);
+    });
+  }
+
+  public attributeChangedCallback(
+    name: IndexComponentParams,
+    oldValue: string,
+    newValue: string
+  ): void {
+    switch (name) {
+      case IndexComponentParams.YEAR:
+        break;
+      case IndexComponentParams.MONTH:
+        break;
+    }
+  }
+
+  public setYearAndMonth(date: Date): void {
+    this.calendarService.selectedYearAndMonth.next(date);
+  }
+
+  public setNextYear(): void {
+    const current = this.calendarService.selectedYearAndMonth.getValue();
+    current.setFullYear(current.getFullYear() + 1);
+    this.calendarService.selectedYearAndMonth.next(current);
+  }
+
+  public setNextMonth(): void {
+    const current = this.calendarService.selectedYearAndMonth.getValue();
+    current.setMonth(current.getMonth() + 1);
+    this.calendarService.selectedYearAndMonth.next(current);
+  }
+
+  public setPreviousYear(): void {
+    const current = this.calendarService.selectedYearAndMonth.getValue();
+    current.setFullYear(current.getFullYear() + 1);
+    this.calendarService.selectedYearAndMonth.next(current);
+  }
+
+  public setPreviousMonth(): void {
+    const current = this.calendarService.selectedYearAndMonth.getValue();
+    current.setMonth(current.getMonth() - 1);
+    this.calendarService.selectedYearAndMonth.next(current);
   }
 }

@@ -31,10 +31,18 @@ export class Subject<T> {
 
 export class BehaviorSubject<T> {
   public subscribers: Set<Subscription<T>> = new Set();
+  private value: T;
 
-  public constructor(private readonly currentValue: T) {}
+  public constructor(private readonly currentValue: T) {
+    this.value = currentValue;
+  }
+
+  public getValue(): T {
+    return this.value;
+  }
 
   public next(value: T): void {
+    this.value = value;
     this.subscribers.forEach((subscriber) => subscriber.next(value));
   }
 
