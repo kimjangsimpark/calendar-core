@@ -1,25 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Component, CustomElement } from '../../engines/component';
-import { CalendarService } from '../../service/calendar.service';
-import template from './schedulebar.component.html';
-import style from './schedulebar.component.scss';
-
-export interface Schedule {
-  id: string;
-  title: string;
-  content: string;
-  start: Date;
-  end: Date;
-  isAllDay: boolean;
-}
+import { Component, CustomElement } from '../../../engines/component';
+import { CalendarService, Schedule } from '../../../service/calendar.service';
+import template from './scheduleWeekLayer.component.html';
+import style from './scheduleWeekLayer.component.scss';
 
 @Component({
-  selector: 'kjsp-schedulebar',
+  selector: 'kjsp-schedule-week-layer',
   template: template,
   style: style,
 })
-export class SchedulebarComponent extends CustomElement {
+export class ScheduleWeekLayerComponent extends CustomElement {
   public index: number;
+  public schedule: Schedule;
 
   public static get observedAttributes(): string[] {
     return ['index'];
@@ -32,6 +24,10 @@ export class SchedulebarComponent extends CustomElement {
     });
   }
 
+  public setIndex(index: string): void {
+    this.setAttribute('index', index);
+    this.style.top = ((100 / 6) * Number(index)).toString() + '%';
+  }
   public attributeChangedCallback(
     name: string,
     oldValue: string,

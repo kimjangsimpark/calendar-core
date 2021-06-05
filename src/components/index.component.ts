@@ -7,6 +7,7 @@ import template from './index.component.html';
 import style from './index.component.scss';
 import { CalendarService } from '../service/calendar.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ScheduleWeekLayerComponent } from './schedule/schedule-week/scheduleWeekLayer.component';
 
 enum IndexComponentParams {
   YEAR = 'year',
@@ -38,6 +39,15 @@ export class IndexComponent extends CustomElement {
       day.setAttribute(DayComponentParams.INDEX, i.toString());
       day.setAttribute(DayComponentParams.DAY, (i % 7).toString());
       $calendar.appendChild(day);
+    }
+
+    for (let i = 0; i < 6; i++) {
+      const scheduleWeekLayer = new ScheduleWeekLayerComponent(
+        this.calendarService
+      );
+      scheduleWeekLayer.classList.add('schedule-week-layer');
+      scheduleWeekLayer.setIndex(i.toString());
+      $calendar.appendChild(scheduleWeekLayer);
     }
 
     this.calendarService.selectedYearAndMonth.subscribe((date) => {
