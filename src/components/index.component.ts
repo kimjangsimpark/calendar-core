@@ -57,43 +57,30 @@ export class IndexComponent extends CustomElement {
   ): void {
     switch (name) {
       case IndexComponentParams.YEAR:
-        this.setYear(Number(newValue));
+        this.calendarService.setYear(Number(newValue));
         break;
       case IndexComponentParams.MONTH:
-        this.setMonth(Number(newValue));
+        this.calendarService.setMonth(Number(newValue));
         break;
     }
   }
-
-  public setYear(year: number): void {
-    const current = this.calendarService.selectedYearAndMonth.getValue();
-    current.setFullYear(year);
-    this.calendarService.selectedYearAndMonth.next(current);
-  }
-
-  public setMonth(month: number): void {
-    const current = this.calendarService.selectedYearAndMonth.getValue();
-    current.setMonth(month);
-    this.calendarService.selectedYearAndMonth.next(current);
-  }
-
   public setNextYear(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    this.setYear(current.getFullYear() + 1);
+    this.calendarService.setYear(current.getFullYear() + 1);
   }
 
   public setNextMonth(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    this.setMonth(current.getMonth() + 1);
+    this.calendarService.setMonth(current.getMonth() + 1);
   }
 
   public setPreviousYear(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    this.setYear(current.getFullYear() + 1);
+    this.calendarService.setYear(current.getFullYear() + 1);
   }
 
   public setPreviousMonth(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    this.setMonth(current.getMonth() - 1);
+    this.calendarService.setMonth(current.getMonth() - 1);
   }
 }

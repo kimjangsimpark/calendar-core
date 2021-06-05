@@ -29,11 +29,26 @@ export class CalendarService {
     });
   }
 
-  public setYearAndMonth(date: Date): void {
-    this.selectedYearAndMonth.next(date);
+  public getYear(): number {
+    const current = this.selectedYearAndMonth.getValue();
+    return current.getFullYear();
   }
 
-  public setSchedules(schedules: Schedule[]): void {
-    this.selectedMonthSchedules.next(schedules);
+  public getMonth(): number {
+    const current = this.selectedYearAndMonth.getValue();
+    return current.getMonth();
   }
+
+  public setYear(year: number): void {
+    const current = this.selectedYearAndMonth.getValue();
+    current.setFullYear(year);
+    this.selectedYearAndMonth.next(current);
+  }
+
+  public setMonth(month: number): void {
+    const current = this.selectedYearAndMonth.getValue();
+    current.setMonth(month);
+    this.selectedYearAndMonth.next(current);
+  }
+
 }
