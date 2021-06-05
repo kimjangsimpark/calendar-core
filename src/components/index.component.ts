@@ -63,31 +63,35 @@ export class IndexComponent extends CustomElement {
     }
   }
 
-  public setYearAndMonth(date: Date): void {
-    this.calendarService.selectedYearAndMonth.next(date);
+  public setYear(year: number): void {
+    const current = this.calendarService.selectedYearAndMonth.getValue();
+    current.setFullYear(year);
+    this.calendarService.selectedYearAndMonth.next(current);
+  }
+
+  public setMonth(month: number): void {
+    const current = this.calendarService.selectedYearAndMonth.getValue();
+    current.setMonth(month);
+    this.calendarService.selectedYearAndMonth.next(current);
   }
 
   public setNextYear(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    current.setFullYear(current.getFullYear() + 1);
-    this.calendarService.selectedYearAndMonth.next(current);
+    this.setYear(current.getFullYear() + 1);
   }
 
   public setNextMonth(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    current.setMonth(current.getMonth() + 1);
-    this.calendarService.selectedYearAndMonth.next(current);
+    this.setMonth(current.getMonth() + 1);
   }
 
   public setPreviousYear(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    current.setFullYear(current.getFullYear() + 1);
-    this.calendarService.selectedYearAndMonth.next(current);
+    this.setYear(current.getFullYear() + 1);
   }
 
   public setPreviousMonth(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
-    current.setMonth(current.getMonth() - 1);
-    this.calendarService.selectedYearAndMonth.next(current);
+    this.setMonth(current.getMonth() - 1);
   }
 }
