@@ -20,7 +20,7 @@ export interface Metadatas {
 }
 
 export class CustomElement extends HTMLElement {
-  private readonly metadata: any;
+  private readonly metadata: Metadata;
   protected constructor() {
     super();
     this.attachShadow({ mode: 'open' });
