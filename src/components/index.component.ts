@@ -2,7 +2,7 @@ import './day/day.component';
 import './toolbar/toolbar.component';
 
 import { Component, CustomElement } from '../engines/component';
-import { DayComponent } from './day/day.component';
+import { DayComponent, DayComponentParams } from './day/day.component';
 import template from './index.component.html';
 import style from './index.component.scss';
 import { CalendarService } from '../service/calendar.service';
@@ -35,7 +35,8 @@ export class IndexComponent extends CustomElement {
     for (let i = 0; i < 7 * 6; i++) {
       const day = new DayComponent(this.calendarService);
       day.classList.add('day');
-      day.setAttribute('index', i.toString());
+      day.setAttribute(DayComponentParams.INDEX, i.toString());
+      day.setAttribute(DayComponentParams.DAY, (i % 7).toString());
       $calendar.appendChild(day);
     }
 
