@@ -4,15 +4,6 @@ import { CalendarService } from '../../../service/calendar.service';
 import template from './schedulebar.component.html';
 import style from './schedulebar.component.scss';
 
-export interface Schedule {
-  id: string;
-  title: string;
-  content: string;
-  start: Date;
-  end: Date;
-  isAllDay: boolean;
-}
-
 @Component({
   selector: 'kjsp-schedulebar',
   template: template,

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Component, CustomElement } from '../../../engines/component';
-import { CalendarService } from '../../../service/calendar.service';
+import { CalendarService, Schedule } from '../../../service/calendar.service';
 import template from './scheduleWeekLayer.component.html';
 import style from './scheduleWeekLayer.component.scss';
 
@@ -11,6 +11,7 @@ import style from './scheduleWeekLayer.component.scss';
 })
 export class ScheduleWeekLayerComponent extends CustomElement {
   public index: number;
+  public schedule: Schedule;
 
   public static get observedAttributes(): string[] {
     return ['index'];

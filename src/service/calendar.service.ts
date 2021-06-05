@@ -6,9 +6,12 @@ export interface CalendarOptions {
 }
 
 export interface Schedule {
+  id: string;
   startDate: Date;
   endDate: Date;
   name: string;
+  content: string;
+  isAllDay: boolean;
 }
 
 export enum Day {
