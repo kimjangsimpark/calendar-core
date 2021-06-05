@@ -50,5 +50,4 @@ export class CalendarService {
     current.setMonth(month);
     this.selectedYearAndMonth.next(current);
   }
-
 }
