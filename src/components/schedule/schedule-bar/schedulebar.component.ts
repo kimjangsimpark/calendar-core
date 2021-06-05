@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Component, CustomElement } from '../../engines/component';
-import { CalendarService } from '../../service/calendar.service';
+import { Component, CustomElement } from '../../../engines/component';
+import { CalendarService } from '../../../service/calendar.service';
 import template from './schedulebar.component.html';
 import style from './schedulebar.component.scss';
 
