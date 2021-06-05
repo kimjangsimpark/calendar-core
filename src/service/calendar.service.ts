@@ -11,6 +11,16 @@ export interface Schedule {
   name: string;
 }
 
+export enum Day {
+  SUNDAY = 0,
+  MONDAY = 1,
+  TUESDAY = 2,
+  WEDNESDAY = 3,
+  THURSDAY = 4,
+  FRIDAY = 5,
+  SATURDAY = 6,
+}
+
 export class CalendarService {
   public readonly currentDate = new Date();
 
@@ -29,26 +39,25 @@ export class CalendarService {
     });
   }
 
-  public getYear(): number {
+  public getSelectedYear(): number {
     const current = this.selectedYearAndMonth.getValue();
     return current.getFullYear();
   }
 
-  public getMonth(): number {
+  public getSelectedMonth(): number {
     const current = this.selectedYearAndMonth.getValue();
     return current.getMonth();
   }
 
-  public setYear(year: number): void {
+  public setSelectedYear(year: number): void {
     const current = this.selectedYearAndMonth.getValue();
     current.setFullYear(year);
     this.selectedYearAndMonth.next(current);
   }
 
-  public setMonth(month: number): void {
+  public setSelectedMonth(month: number): void {
     const current = this.selectedYearAndMonth.getValue();
     current.setMonth(month);
     this.selectedYearAndMonth.next(current);
   }
-
 }

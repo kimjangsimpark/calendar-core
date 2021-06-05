@@ -34,10 +34,14 @@ export class ToolbarComponent extends CustomElement {
   }
 
   public onNextMonthClicked(): void {
-    this.calendarService.setMonth(this.calendarService.getMonth() + 1);
+    this.calendarService.setSelectedMonth(
+      this.calendarService.getSelectedMonth() + 1
+    );
   }
 
   public onPreviousMonthClicked(): void {
-    this.calendarService.setMonth(this.calendarService.getMonth() - 1);
+    this.calendarService.setSelectedMonth(
+      this.calendarService.getSelectedMonth() - 1
+    );
   }
 }
