@@ -13,3 +13,12 @@
   flex-wrap: wrap;
   flex-flow: wrap;
 }
+
+#date {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    width: calc(100% / 7);
+  }
+}

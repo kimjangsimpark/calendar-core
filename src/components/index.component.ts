@@ -57,8 +57,10 @@ export class IndexComponent extends CustomElement {
   ): void {
     switch (name) {
       case IndexComponentParams.YEAR:
+        this.setYear(Number(newValue));
         break;
       case IndexComponentParams.MONTH:
+        this.setMonth(Number(newValue));
         break;
     }
   }
