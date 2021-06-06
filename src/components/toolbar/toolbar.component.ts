@@ -17,7 +17,7 @@ export class ToolbarComponent extends CustomElement {
       const $year = this.shadowRoot.querySelector('#current-year');
       $year.textContent = selectedDate.getFullYear().toString();
       const $month = this.shadowRoot.querySelector('#current-month');
-      $month.textContent = selectedDate.getMonth().toString();
+      $month.textContent = (selectedDate.getMonth() + 1).toString();
     });
 
     const $nextMonth = this.shadowRoot.querySelector('#next-month-btn');

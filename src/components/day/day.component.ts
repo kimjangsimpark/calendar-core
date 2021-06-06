@@ -4,11 +4,6 @@ import { CalendarService, Day } from '../../service/calendar.service';
 import template from './day.component.html';
 import style from './day.component.scss';
 
-export enum DayComponentParams {
-  DAY = 'day',
-  INDEX = 'index',
-}
-
 @Component({
   selector: 'kjsp-day',
   template: template,
@@ -16,31 +11,23 @@ export enum DayComponentParams {
 })
 export class DayComponent extends CustomElement {
   public day: Day;
-  public index: number;
   public date: Date;
 
-  public static get observedAttributes(): DayComponentParams[] {
-    return [DayComponentParams.INDEX, DayComponentParams.DAY];
-  }
-
-  public constructor(private readonly calendarService: CalendarService) {
+  public constructor(
+    private readonly calendarService: CalendarService,
+    private readonly index: number
+  ) {
     super();
     this.calendarService.selectedYearAndMonth.subscribe((date) => {
-    });
-  }
+      const firstDay = this.calendarService.getSelectedFirstDay();
+      const axisDate = new Date(date.getTime());
+      axisDate.setDate(1);
+      axisDate.setDate(-firstDay + 1);
 
-  public attributeChangedCallback(
-    name: DayComponentParams,
-    oldValue: string,
-    newValue: string
-  ): void {
-    switch (name) {
-      case DayComponentParams.DAY:
-        this.day = Number(newValue) as Day;
-        break;
-      case DayComponentParams.INDEX:
-        this.index = Number(newValue);
-        break;
-    }
+      const targetDate = new Date(axisDate.getTime());
+      targetDate.setDate(axisDate.getDate() + this.index);
+      const $day = this.shadowRoot.querySelector('#day');
+      $day.textContent = targetDate.getDate().toString();
+    });
   }
 }

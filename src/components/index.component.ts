@@ -2,7 +2,7 @@ import './day/day.component';
 import './toolbar/toolbar.component';
 
 import { Component, CustomElement } from '../engines/component';
-import { DayComponent, DayComponentParams } from './day/day.component';
+import { DayComponent } from './day/day.component';
 import template from './index.component.html';
 import style from './index.component.scss';
 import { CalendarService } from '../service/calendar.service';
@@ -33,11 +33,10 @@ export class IndexComponent extends CustomElement {
     this.shadowRoot.prepend($toolbar);
 
     const $calendar = this.shadowRoot.querySelector('#index');
+
     for (let i = 0; i < 7 * 6; i++) {
-      const day = new DayComponent(this.calendarService);
+      const day = new DayComponent(this.calendarService, i);
       day.classList.add('day');
-      day.setAttribute(DayComponentParams.INDEX, i.toString());
-      day.setAttribute(DayComponentParams.DAY, (i % 7).toString());
       $calendar.appendChild(day);
     }
 
@@ -71,10 +70,11 @@ export class IndexComponent extends CustomElement {
         this.calendarService.setSelectedYear(Number(newValue));
         break;
       case IndexComponentParams.MONTH:
-        this.calendarService.setSelectedMonth(Number(newValue));
+        this.calendarService.setSelectedMonth(Number(newValue) - 1);
         break;
     }
   }
+
   public setNextYear(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
     this.calendarService.setSelectedYear(current.getFullYear() + 1);

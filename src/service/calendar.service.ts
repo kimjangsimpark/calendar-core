@@ -42,6 +42,19 @@ export class CalendarService {
     });
   }
 
+  public getSelectedFirstDay(): number {
+    const clone = new Date(this.selectedYearAndMonth.getValue().getTime());
+    clone.setDate(1);
+    console.log(clone.getDay());
+    return clone.getDay();
+  }
+
+  public getSelectedLastDate(): number {
+    const clone = new Date(this.selectedYearAndMonth.getValue().getTime());
+    clone.setDate(0);
+    return clone.getDate();
+  }
+
   public getSelectedYear(): number {
     const current = this.selectedYearAndMonth.getValue();
     return current.getFullYear();
