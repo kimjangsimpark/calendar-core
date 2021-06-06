@@ -2,12 +2,11 @@ import './day/day.component';
 import './toolbar/toolbar.component';
 
 import { Component, CustomElement } from '../engines/component';
-import { DayComponent } from './day/day.component';
 import template from './index.component.html';
 import style from './index.component.scss';
 import { CalendarService } from '../service/calendar.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { ScheduleWeekLayerComponent } from './schedule/schedule-week/scheduleWeekLayer.component';
+import { WeekContainerComponent } from './week/week-container.component';
 
 enum IndexComponentParams {
   YEAR = 'year',
@@ -34,28 +33,13 @@ export class IndexComponent extends CustomElement {
 
     const $calendar = this.shadowRoot.querySelector('#index');
 
-    // for (let i = 0; i < 7 * 6; i++) {
-    //   const day = new DayComponent(this.calendarService, i);
-    //   day.classList.add('day');
-    //   $calendar.appendChild(day);
-    // }
-
     for (let i = 0; i < 6; i++) {
-      const scheduleWeekLayer = new ScheduleWeekLayerComponent(
+      const scheduleWeekLayer = new WeekContainerComponent(
         this.calendarService,
         i
       );
       $calendar.append(scheduleWeekLayer);
     }
-
-    // for (let i = 0; i < 6; i++) {
-    //   const scheduleWeekLayer = new ScheduleWeekLayerComponent(
-    //     this.calendarService
-    //   );
-    //   scheduleWeekLayer.classList.add('schedule-week-layer');
-    //   scheduleWeekLayer.setIndex(i.toString());
-    //   $calendar.appendChild(scheduleWeekLayer);
-    // }
 
     this.calendarService.selectedYearAndMonth.subscribe((date) => {
       const event = new CustomEvent('yearAndMonthChange', {
