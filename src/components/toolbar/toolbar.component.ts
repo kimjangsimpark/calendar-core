@@ -29,10 +29,6 @@ export class ToolbarComponent extends CustomElement {
     );
   }
 
-  public connectedCallback(): void {
-    console.log(this.calendarService);
-  }
-
   public onNextMonthClicked(): void {
     this.calendarService.setSelectedMonth(
       this.calendarService.getSelectedMonth() + 1

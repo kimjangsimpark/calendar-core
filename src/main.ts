@@ -12,5 +12,3 @@ root.appendChild(element);
 element.addEventListener('yearAndMonthChange', (e) => {
   console.log(e);
 });
-
-console.log(element);

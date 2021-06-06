@@ -45,7 +45,6 @@ export class CalendarService {
   public getSelectedFirstDay(): number {
     const clone = new Date(this.selectedYearAndMonth.getValue().getTime());
     clone.setDate(1);
-    console.log(clone.getDay());
     return clone.getDay();
   }
 
