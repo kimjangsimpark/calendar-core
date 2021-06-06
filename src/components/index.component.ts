@@ -34,20 +34,28 @@ export class IndexComponent extends CustomElement {
 
     const $calendar = this.shadowRoot.querySelector('#index');
 
-    for (let i = 0; i < 7 * 6; i++) {
-      const day = new DayComponent(this.calendarService, i);
-      day.classList.add('day');
-      $calendar.appendChild(day);
-    }
+    // for (let i = 0; i < 7 * 6; i++) {
+    //   const day = new DayComponent(this.calendarService, i);
+    //   day.classList.add('day');
+    //   $calendar.appendChild(day);
+    // }
 
     for (let i = 0; i < 6; i++) {
       const scheduleWeekLayer = new ScheduleWeekLayerComponent(
-        this.calendarService
+        this.calendarService,
+        i
       );
-      scheduleWeekLayer.classList.add('schedule-week-layer');
-      scheduleWeekLayer.setIndex(i.toString());
-      $calendar.appendChild(scheduleWeekLayer);
+      $calendar.append(scheduleWeekLayer);
     }
+
+    // for (let i = 0; i < 6; i++) {
+    //   const scheduleWeekLayer = new ScheduleWeekLayerComponent(
+    //     this.calendarService
+    //   );
+    //   scheduleWeekLayer.classList.add('schedule-week-layer');
+    //   scheduleWeekLayer.setIndex(i.toString());
+    //   $calendar.appendChild(scheduleWeekLayer);
+    // }
 
     this.calendarService.selectedYearAndMonth.subscribe((date) => {
       const event = new CustomEvent('yearAndMonthChange', {
