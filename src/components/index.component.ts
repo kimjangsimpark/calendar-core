@@ -7,6 +7,7 @@ import style from './index.component.scss';
 import { CalendarService } from '../service/calendar.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { WeekContainerComponent } from './week/week-container.component';
+import { OverlayComponent } from './overlay/overlay.component';
 
 enum IndexComponentParams {
   YEAR = 'year',
@@ -30,6 +31,9 @@ export class IndexComponent extends CustomElement {
     super();
     const $toolbar = new ToolbarComponent(this.calendarService);
     this.shadowRoot.prepend($toolbar);
+
+    const $overlay = new OverlayComponent();
+    this.shadowRoot.append($overlay);
 
     const $calendar = this.shadowRoot.querySelector('#index');
 
