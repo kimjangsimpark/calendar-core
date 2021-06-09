@@ -7,20 +7,32 @@ export interface ComponentParams {
   selector: string;
   template: string;
   style?: string;
+  root?: boolean;
 }
 
 export interface Metadata {
   $template: HTMLTemplateElement;
   template?: string;
   style?: string;
+  root?: boolean;
 }
 
 export interface Metadatas {
   [key: string]: Metadata;
 }
 
+export interface Root {
+  [key: string]: {
+    [key: string]: any;
+  };
+}
+
+const Root: Root = {};
+const Metadatas: Metadatas = {};
+
 export class CustomElement extends HTMLElement {
   private readonly metadata: Metadata;
+
   public constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -30,8 +42,6 @@ export class CustomElement extends HTMLElement {
   }
 }
 
-const Metadatas: Metadatas = {};
-
 /**
  * lifecycle 데코레이터
  */
@@ -40,6 +50,7 @@ export function Component(
 ): (constructor: ClassConstructor) => void {
   return function (constructor: ClassConstructor) {
     const $template = document.createElement('template');
+
     if (params.template) {
       $template.innerHTML += params.template;
     }
@@ -51,11 +62,14 @@ export function Component(
       $template: $template,
       template: params.template,
       style: params.style,
+      root: params.root,
     };
 
-    Object.defineProperty(constructor.prototype, 'metadata', {
-      get(): Metadata {
-        return Metadatas[params.selector];
+    Object.defineProperties(constructor.prototype, {
+      metadata: {
+        get(): Metadata {
+          return Metadatas[params.selector];
+        },
       },
     });
 

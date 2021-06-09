@@ -18,10 +18,11 @@ enum IndexComponentParams {
   selector: 'kjsp-index',
   template: template,
   style: style,
+  root: true,
 })
 export class IndexComponent extends CustomElement {
-  public date = new Date();
   public calendarService: CalendarService = new CalendarService();
+  public date = new Date();
 
   public static get observedAttributes(): string[] {
     return [IndexComponentParams.YEAR, IndexComponentParams.MONTH];
@@ -32,14 +33,16 @@ export class IndexComponent extends CustomElement {
     const $toolbar = new ToolbarComponent(this.calendarService);
     this.shadowRoot.prepend($toolbar);
 
-    const $overlay = new OverlayComponent();
-    this.shadowRoot.append($overlay);
+    const $overlay = new OverlayComponent(this.calendarService);
+    const $calendarWrapper = this.shadowRoot.getElementById('calendar-wrapper');
+    $calendarWrapper.append($overlay);
 
     const $calendar = this.shadowRoot.querySelector('#index');
 
     for (let i = 0; i < 6; i++) {
       const scheduleWeekLayer = new WeekContainerComponent(
         this.calendarService,
+        $overlay,
         i
       );
       $calendar.append(scheduleWeekLayer);
