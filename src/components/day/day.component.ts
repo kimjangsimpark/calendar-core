@@ -29,6 +29,11 @@ export class DayComponent extends CustomElement {
       const $day = this.shadowRoot.querySelector('#day');
       $day.textContent = targetDate.getDate().toString();
     });
-    console.log(this.index);
+
+    this.addEventListener('click', this.onDayClicked.bind(this));
+  }
+
+  public onDayClicked(e: Event): void {
+    console.log(e);
   }
 }
