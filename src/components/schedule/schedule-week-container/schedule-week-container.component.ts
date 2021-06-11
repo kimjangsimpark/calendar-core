@@ -9,6 +9,9 @@ import style from './schedule-week-container.component.scss';
   style: style,
 })
 export class ScheduleWeekContainerComponent extends CustomElement {
+  private startDay: Date;
+  private endDay: Date;
+
   public constructor(
     private readonly calendarService: CalendarService,
     private readonly index: number

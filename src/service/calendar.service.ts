@@ -75,4 +75,8 @@ export class CalendarService {
     current.setMonth(month);
     this.selectedYearAndMonth.next(current);
   }
+
+  public setSelectedMonthSchedule(scheduleList: Schedule[]): void {
+    this.selectedMonthSchedules.next(scheduleList);
+  }
 }
