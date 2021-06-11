@@ -8,6 +8,7 @@ import { CalendarService } from '../service/calendar.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { WeekContainerComponent } from './week/week-container.component';
 import { OverlayComponent } from './overlay/overlay.component';
+import { fakeData } from '../data/fake.data';
 
 enum IndexComponentParams {
   YEAR = 'year',
@@ -57,6 +58,9 @@ export class IndexComponent extends CustomElement {
       });
       this.dispatchEvent(event);
     });
+
+    // insert fake data
+    this.calendarService.setSelectedMonthSchedule(fakeData);
   }
 
   public attributeChangedCallback(

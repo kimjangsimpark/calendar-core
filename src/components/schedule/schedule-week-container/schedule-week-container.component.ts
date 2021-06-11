@@ -17,5 +17,11 @@ export class ScheduleWeekContainerComponent extends CustomElement {
     private readonly index: number
   ) {
     super();
+    this.calendarService.selectedYearAndMonth.subscribe((date) => {
+      console.log('서비스에서 받은 구독결과 인덱스 & 데이트', this.index, date);
+    });
+    this.calendarService.selectedMonthSchedules.subscribe((scheduleList) => {
+      console.log(scheduleList);
+    });
   }
 }
