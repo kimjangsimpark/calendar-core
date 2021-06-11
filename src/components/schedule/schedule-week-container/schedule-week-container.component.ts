@@ -3,6 +3,10 @@ import { CalendarService } from '../../../service/calendar.service';
 import template from './schedule-week-container.component.html';
 import style from './schedule-week-container.component.scss';
 
+enum UnitsForSchedule {
+  week = 7,
+}
+
 @Component({
   selector: 'schedule-week-container',
   template: template,
