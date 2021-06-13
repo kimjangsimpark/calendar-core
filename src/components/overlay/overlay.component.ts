@@ -3,7 +3,7 @@ import { CalendarService } from '../../service/calendar.service';
 import template from './overlay.component.html';
 import style from './overlay.component.scss';
 
-export interface DialogTarget {
+export interface DialogTargetAxis {
   x: number;
   y: number;
   width: number;
@@ -21,9 +21,24 @@ export class OverlayComponent extends CustomElement {
     console.log(this);
   }
 
+  public hasOpenedAny(): boolean {
+    return !!this.shadowRoot.children.length;
+  }
+
+  public clear(): void {
+    this.shadowRoot.innerHTML = '';
+  }
+
+  public getMaxHeight(): number {
+    return this.offsetParent.getBoundingClientRect().height;
+  }
+
+  public getMaxWidth(): number {
+    return this.offsetParent.getBoundingClientRect().width;
+  }
+
   public openDialogComponent(component: CustomElement): void {
     component.style.position = 'fixed';
-
-    this.appendChild(component);
+    this.shadowRoot.appendChild(component);
   }
 }

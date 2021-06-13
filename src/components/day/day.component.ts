@@ -4,7 +4,7 @@
 import { Component, CustomElement } from '../../engines/component';
 import { CalendarService, Day } from '../../service/calendar.service';
 import { AddScheduleComponent } from '../dialogs/add-schedule/add-schedule.component';
-import { OverlayComponent } from '../overlay/overlay.component';
+import { DialogTargetAxis, OverlayComponent } from '../overlay/overlay.component';
 import { WeekContainerComponent } from '../week/week-container.component';
 import template from './day.component.html';
 import style from './day.component.scss';
@@ -51,14 +51,12 @@ export class DayComponent extends CustomElement {
 
   public onDayClicked(e: Event): void {
     const rect = this.getBoundingClientRect();
-    const axis = {
+    const axis: DialogTargetAxis = {
       x: this.getLeft(),
       y: this.getTop(),
       width: rect.width,
       height: rect.height,
     };
-
-    const $schedule = new AddScheduleComponent();
-    this.overlayComponent.openDialogComponent($schedule);
+    const $schedule = new AddScheduleComponent(this.overlayComponent, axis);
   }
 }
