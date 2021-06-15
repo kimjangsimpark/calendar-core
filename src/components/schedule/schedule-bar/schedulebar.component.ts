@@ -3,6 +3,7 @@ import { Component, CustomElement } from '../../../engines/component';
 import { CalendarService } from '../../../service/calendar.service';
 import template from './schedulebar.component.html';
 import style from './schedulebar.component.scss';
+import { ScheduleViewModel } from '../schedule-week-container/schedule-week-container.component';
 
 @Component({
   selector: 'kjsp-schedulebar',
@@ -16,11 +17,12 @@ export class SchedulebarComponent extends CustomElement {
     return ['index'];
   }
 
-  public constructor(private readonly calendarService: CalendarService) {
+  public constructor(
+    private readonly calendarService: CalendarService,
+    private scheduleVM: ScheduleViewModel
+  ) {
     super();
-    this.calendarService.selectedYearAndMonth.subscribe((date) => {
-      console.log(date);
-    });
+    console.log(this.scheduleVM);
   }
 
   public attributeChangedCallback(

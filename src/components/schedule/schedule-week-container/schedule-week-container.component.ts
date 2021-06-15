@@ -17,7 +17,7 @@ export class ScheduleViewModel {
   }
 
   get getDuration(): number {
-    return this.startDate.getTime() - this.endDate.getTime();
+    return this.endDate.getTime() - this.startDate.getTime();
   }
 
   get top(): number {
@@ -87,8 +87,9 @@ enum UnitsForSchedule {
   style: style,
 })
 export class ScheduleWeekContainerComponent extends CustomElement {
-  private startDay: Date;
-  private endDay: Date;
+  private startDate: Date;
+  private endDate: Date;
+  private scheduleVMList: ScheduleViewModel[];
 
   public constructor(
     private readonly calendarService: CalendarService,
@@ -97,9 +98,20 @@ export class ScheduleWeekContainerComponent extends CustomElement {
     super();
     this.calendarService.selectedYearAndMonth.subscribe(this.getSubscriber());
     this.calendarService.selectedMonthSchedules.subscribe((scheduleList) => {
-      console.log('스케쥴 리스트', scheduleList);
-      const myScheduleList = scheduleList.map((schedule) => {
-        return schedule;
+      console.log('받은스케줄', scheduleList);
+      this.scheduleVMList = scheduleList.reduce((result, schedule) => {
+        if (
+          schedule.startDate < this.startDate &&
+          schedule.endDate > this.endDate
+        ) {
+          result.push(new ScheduleViewModel(schedule));
+        }
+        return [...result];
+      }, new Array<ScheduleViewModel>());
+
+      console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
+      this.scheduleVMList.forEach((schedule) => {
+        console.log('duration', schedule.getDuration);
       });
     });
   }
@@ -117,18 +129,18 @@ export class ScheduleWeekContainerComponent extends CustomElement {
     };
 
     return (date) => {
-      this.startDay = new Date(getAxisDate(date).getTime());
-      this.startDay.setDate(
+      this.startDate = new Date(getAxisDate(date).getTime());
+      this.startDate.setDate(
         getAxisDate(date).getDate() + UnitsForSchedule.week * this.index
       );
-      this.endDay = new Date(getAxisDate(date).getTime());
-      this.endDay.setDate(
+      this.endDate = new Date(getAxisDate(date).getTime());
+      this.endDate.setDate(
         getAxisDate(date).getDate() +
           UnitsForSchedule.week * (this.index + 1) -
           1
       );
-      console.log('스타트데이트:', this.startDay);
-      console.log('엔드데이트22:', this.endDay);
+      console.log('스타트데이트:', this.startDate);
+      console.log('엔드데이트22:', this.endDate);
     };
   }
 }
