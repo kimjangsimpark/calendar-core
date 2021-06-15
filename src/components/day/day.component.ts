@@ -4,7 +4,10 @@
 import { Component, CustomElement } from '../../engines/component';
 import { CalendarService, Day } from '../../service/calendar.service';
 import { AddScheduleComponent } from '../dialogs/add-schedule/add-schedule.component';
-import { DialogTargetAxis, OverlayComponent } from '../overlay/overlay.component';
+import {
+  DialogTargetAxis,
+  OverlayComponent,
+} from '../overlay/overlay.component';
 import { WeekContainerComponent } from '../week/week-container.component';
 import template from './day.component.html';
 import style from './day.component.scss';
