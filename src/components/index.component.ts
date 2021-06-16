@@ -50,6 +50,7 @@ export class IndexComponent extends CustomElement {
     }
 
     this.calendarService.selectedYearAndMonth.subscribe((date) => {
+      $overlay.clear();
       const event = new CustomEvent('yearAndMonthChange', {
         detail: {
           date: date,
