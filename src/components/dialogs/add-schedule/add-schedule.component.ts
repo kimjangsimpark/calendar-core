@@ -1,8 +1,5 @@
 import { Component, CustomElement } from '../../../engines/component';
-import {
-  DialogTargetAxis,
-  OverlayComponent,
-} from '../../overlay/overlay.component';
+import { DialogTargetAxis, OverlayComponent } from '../../overlay/overlay.component';
 import template from './add-schedule.component.html';
 import style from './add-schedule.component.scss';
 
@@ -13,12 +10,7 @@ enum Position {
   LEFT,
 }
 
-const ExpectedOrder: Position[] = [
-  Position.TOP,
-  Position.RIGHT,
-  Position.BOTTOM,
-  Position.LEFT,
-];
+const ExpectedOrder: Position[] = [Position.TOP, Position.RIGHT, Position.BOTTOM, Position.LEFT];
 
 @Component({
   selector: 'kjsp-add-schedule',
@@ -26,6 +18,7 @@ const ExpectedOrder: Position[] = [
   style: style,
 })
 export class AddScheduleComponent extends CustomElement {
+
   public constructor(
     private readonly overlayComponent: OverlayComponent,
     private readonly parentAxis: DialogTargetAxis
@@ -33,13 +26,32 @@ export class AddScheduleComponent extends CustomElement {
     super();
     this.overlayComponent.clear();
     this.overlayComponent.shadowRoot.append(this);
+    this.getRendablePosition();
+  }
+  
+  public getRendablePosition(): void {
     const rect = this.getBoundingClientRect();
 
-    this.style.left = `${parentAxis.x + parentAxis.width}px`;
-    this.style.top = `${
-      parentAxis.y - (rect.height - parentAxis.height) / 2
-    }px`;
-  }
+    const maxWidth = this.overlayComponent.getMaxWidth();
+    const maxHeight = this.overlayComponent.getMaxHeight();
 
-  public getRendablePosition(): void {}
+    // 우하좌상 우선순위 x 축 정의
+    if (
+      this.parentAxis.x + this.parentAxis.width + rect.width < maxWidth
+    ) {
+      this.style.left = `${this.parentAxis.x + this.parentAxis.width}px`;
+    } else if (
+      this.parentAxis.x + this.parentAxis.width + ((rect.width - this.parentAxis.width) / 2) < maxWidth
+    ) {
+      this.style.left = `${this.parentAxis.x - ((rect.width - this.parentAxis.width) / 2)}px`;
+    } else if (
+      this.parentAxis.x - rect.width < this.parentAxis.x
+    ) {
+      this.style.left = `${this.parentAxis.x - rect.width}px`;
+    } else {
+      throw new Error('Unsupported position');
+    }
+
+    // y 축 보정 실행
+  }
 }
