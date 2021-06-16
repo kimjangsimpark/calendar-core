@@ -35,12 +35,39 @@ export class AddScheduleComponent extends DialogComponent {
     public readonly parentAxis: DialogTargetAxis
   ) {
     super(overlayComponent, parentAxis);
+
     this.shadowRoot
-      .querySelector('#close')
+      .getElementById('close')
       .addEventListener('click', this.onCloseClicked.bind(this));
+
+    this.shadowRoot
+      .getElementById('submit')
+      .addEventListener('click', this.onSubmitClicked.bind(this));
+
+    const $allDay = this.shadowRoot.getElementById('allDay') as HTMLInputElement;
+    $allDay.addEventListener(
+      'click', 
+      this.onAllDayClicked.bind(
+        this, 
+        $allDay
+      )
+    );
+  }
+
+  public onAllDayClicked(
+    $allDay: HTMLInputElement,
+  ): void {
+    const $startDate = this.shadowRoot.getElementById('startDate') as HTMLInputElement;
+    const $endDate = this.shadowRoot.getElementById('endDate') as HTMLInputElement;
+    $startDate.type = $allDay.checked ? 'date' : 'datetime-local';
+    $endDate.type = $allDay.checked ? 'date' : 'datetime-local';
   }
 
   public onCloseClicked(): void {
+    this.overlayComponent.clear();
+  }
+
+  public onSubmitClicked(): void {
     this.overlayComponent.clear();
   }
 }

@@ -1,7 +1,27 @@
 :host {
-  width: 100px;
-  height: 100px;
+  // width: 100px;
+  // height: 100px;
   display: block;
   background-color: white;
   border: 1px solid grey;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+
+  #top-toolbar {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bottom-toolbar {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
