@@ -35,6 +35,9 @@ export class AddScheduleComponent extends DialogComponent {
     public readonly parentAxis: DialogTargetAxis
   ) {
     super(overlayComponent, parentAxis);
+    this.shadowRoot
+      .querySelector('#close')
+      .addEventListener('click', this.onCloseClicked.bind(this));
   }
 
   public onCloseClicked(): void {
