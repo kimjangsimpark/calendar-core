@@ -17,9 +17,10 @@ export class ScheduleViewModel {
     this._endDate = new Date(this._model.endDate.getTime());
   }
 
-  get getName():string {
-    return this._model.name
+  get getName(): string {
+    return this._model.name;
   }
+
   get getDuration(): number {
     return this.endDate.getTime() - this.startDate.getTime();
   }

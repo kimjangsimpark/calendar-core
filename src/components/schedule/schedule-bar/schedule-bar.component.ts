@@ -8,7 +8,7 @@ import { ScheduleViewModel } from '../schedule-week-container/schedule-week-cont
 @Component({
   selector: 'kjsp-schedulebar',
   template: template,
-  style: style,
+  style: style
 })
 export class ScheduleBarComponent extends CustomElement {
   public index: number;
@@ -25,6 +25,7 @@ export class ScheduleBarComponent extends CustomElement {
     console.log(this.scheduleVM);
     const $scheduleName = this.shadowRoot.querySelector('#schedule-name');
     $scheduleName.textContent = this.scheduleVM.getName;
+    console.dir($scheduleName);
   }
 
   public attributeChangedCallback(
