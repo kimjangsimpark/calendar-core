@@ -84,7 +84,7 @@ enum UnitsForSchedule {
 @Component({
   selector: 'schedule-week-container',
   template: template,
-  style: style,
+  style: style
 })
 export class ScheduleWeekContainerComponent extends CustomElement {
   private startDate: Date;
@@ -98,15 +98,23 @@ export class ScheduleWeekContainerComponent extends CustomElement {
     super();
     this.calendarService.selectedYearAndMonth.subscribe(this.getSubscriber());
     this.calendarService.selectedMonthSchedules.subscribe((scheduleList) => {
-      console.log('받은스케줄', scheduleList);
       this.scheduleVMList = scheduleList.reduce((result, schedule) => {
         if (
-          schedule.startDate < this.startDate &&
-          schedule.endDate > this.endDate
+          schedule.endDate.getTime() < this.startDate.getTime() ||
+          schedule.startDate.getTime() > this.endDate.getTime()
         ) {
+          return [...result];
+        } else {
           result.push(new ScheduleViewModel(schedule));
+          // console.log(
+          //   `${this.index} : `,
+          //   schedule.startDate.getMonth(),
+          //   schedule.startDate.getDate(),
+          //   this.startDate.getMonth(),
+          //   this.startDate.getDate()
+          // );
+          return [...result];
         }
-        return [...result];
       }, new Array<ScheduleViewModel>());
 
       console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
@@ -136,8 +144,8 @@ export class ScheduleWeekContainerComponent extends CustomElement {
       this.endDate = new Date(getAxisDate(date).getTime());
       this.endDate.setDate(
         getAxisDate(date).getDate() +
-          UnitsForSchedule.week * (this.index + 1) -
-          1
+        UnitsForSchedule.week * (this.index + 1) -
+        1
       );
       console.log('스타트데이트:', this.startDate);
       console.log('엔드데이트22:', this.endDate);
