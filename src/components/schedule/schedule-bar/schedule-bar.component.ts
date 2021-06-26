@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Component, CustomElement } from '../../../engines/component';
 import { CalendarService } from '../../../service/calendar.service';
-import template from './schedulebar.component.html';
-import style from './schedulebar.component.scss';
+import template from './schedule-bar.component.html';
+import style from './schedule-bar.component.scss';
 import { ScheduleViewModel } from '../schedule-week-container/schedule-week-container.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { ScheduleViewModel } from '../schedule-week-container/schedule-week-cont
   template: template,
   style: style,
 })
-export class SchedulebarComponent extends CustomElement {
+export class ScheduleBarComponent extends CustomElement {
   public index: number;
 
   public static get observedAttributes(): string[] {
