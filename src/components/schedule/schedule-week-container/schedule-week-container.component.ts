@@ -2,6 +2,7 @@ import { Component, CustomElement } from '../../../engines/component';
 import { CalendarService, Schedule } from '../../../service/calendar.service';
 import template from './schedule-week-container.component.html';
 import style from './schedule-week-container.component.scss';
+import { ScheduleBarComponent } from '../schedule-bar/schedule-bar.component';
 
 export class ScheduleViewModel {
   private _top = 0;
@@ -16,6 +17,9 @@ export class ScheduleViewModel {
     this._endDate = new Date(this._model.endDate.getTime());
   }
 
+  get getName():string {
+    return this._model.name
+  }
   get getDuration(): number {
     return this.endDate.getTime() - this.startDate.getTime();
   }
@@ -90,6 +94,7 @@ export class ScheduleWeekContainerComponent extends CustomElement {
   private startDate: Date;
   private endDate: Date;
   private scheduleVMList: ScheduleViewModel[];
+  private scheduleBarList: ScheduleBarComponent[];
 
   public constructor(
     private readonly calendarService: CalendarService,
@@ -106,13 +111,6 @@ export class ScheduleWeekContainerComponent extends CustomElement {
           return [...result];
         } else {
           result.push(new ScheduleViewModel(schedule));
-          // console.log(
-          //   `${this.index} : `,
-          //   schedule.startDate.getMonth(),
-          //   schedule.startDate.getDate(),
-          //   this.startDate.getMonth(),
-          //   this.startDate.getDate()
-          // );
           return [...result];
         }
       }, new Array<ScheduleViewModel>());
@@ -120,8 +118,12 @@ export class ScheduleWeekContainerComponent extends CustomElement {
         return a.getDuration > b.getDuration ? 0 : 1;
       });
       console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
+      this.scheduleBarList = new Array<ScheduleBarComponent>();
       this.scheduleVMList.forEach((schedule) => {
         console.log('duration', schedule.getDuration);
+        const scheduleBar = new ScheduleBarComponent(this.calendarService, schedule);
+        this.scheduleBarList.push(scheduleBar);
+        this.shadowRoot.append(scheduleBar);
       });
     });
   }
