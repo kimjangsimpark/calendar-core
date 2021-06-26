@@ -84,7 +84,7 @@ export class ScheduleViewModel {
 
 enum UnitsForSchedule {
   week = 7,
-  height = 19
+  height = 19,
 }
 
 @Component({
@@ -117,14 +117,17 @@ export class ScheduleWeekContainerComponent extends CustomElement {
         }
       }, new Array<ScheduleViewModel>());
       this.scheduleVMList.sort((a, b) => {
-        return a.getDuration > b.getDuration ? 0 : 1;
+        return b.getDuration - a.getDuration;
       });
       console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
       this.scheduleBarList = new Array<ScheduleBarComponent>();
       this.scheduleVMList.forEach((schedule, index) => {
         schedule.top = (index + 1) * UnitsForSchedule.height;
         console.log('duration', schedule.getDuration);
-        const scheduleBar = new ScheduleBarComponent(this.calendarService, schedule);
+        const scheduleBar = new ScheduleBarComponent(
+          this.calendarService,
+          schedule
+        );
         this.scheduleBarList.push(scheduleBar);
         this.shadowRoot.append(scheduleBar);
       });

@@ -24,7 +24,12 @@ export class ScheduleBarComponent extends CustomElement {
     super();
     console.log(this.scheduleVM);
     const $scheduleName = this.shadowRoot.querySelector('#schedule-name');
-    $scheduleName.textContent = this.scheduleVM.getName;
+    $scheduleName.textContent =
+      this.scheduleVM.getName +
+      ' ' +
+      this.scheduleVM.startDate.toLocaleDateString() +
+      ' ~ ' +
+      this.scheduleVM.endDate.toLocaleDateString();
     console.dir($scheduleName);
     this.style.top = String(this.scheduleVM.top) + 'px';
   }
