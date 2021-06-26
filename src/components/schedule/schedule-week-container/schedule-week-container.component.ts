@@ -116,7 +116,9 @@ export class ScheduleWeekContainerComponent extends CustomElement {
           return [...result];
         }
       }, new Array<ScheduleViewModel>());
-
+      this.scheduleVMList.sort((a, b) => {
+        return a.getDuration > b.getDuration ? 0 : 1;
+      });
       console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
       this.scheduleVMList.forEach((schedule) => {
         console.log('duration', schedule.getDuration);
