@@ -84,7 +84,8 @@ export class ScheduleViewModel {
 
 enum UnitsForSchedule {
   week = 7,
-  height = 19,
+  top = 19,
+  left = (1 / 7) * 100,
 }
 
 @Component({
@@ -122,7 +123,25 @@ export class ScheduleWeekContainerComponent extends CustomElement {
       console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
       this.scheduleBarList = new Array<ScheduleBarComponent>();
       this.scheduleVMList.forEach((schedule, index) => {
-        schedule.top = (index + 1) * UnitsForSchedule.height;
+        schedule.top = (index + 1) * UnitsForSchedule.top;
+        if (this.startDate.getDate() > this.endDate.getDate()) {
+          if (this.endDate.getMonth() !== schedule.startDate.getMonth()) {
+            schedule.left =
+              (schedule.startDate.getDate() - this.startDate.getDate() >= 0
+                ? schedule.startDate.getDate() - this.startDate.getDate()
+                : 0) * UnitsForSchedule.left;
+          } else {
+            schedule.left =
+              (schedule.startDate.getDate() - this.startDate.getDate() >= 0
+                ? schedule.startDate.getDate() - this.startDate.getDate()
+                : 0) * UnitsForSchedule.left;
+          }
+        } else {
+          schedule.left =
+            (schedule.startDate.getDate() - this.startDate.getDate() >= 0
+              ? schedule.startDate.getDate() - this.startDate.getDate()
+              : 0) * UnitsForSchedule.left;
+        }
         console.log('duration', schedule.getDuration);
         const scheduleBar = new ScheduleBarComponent(
           this.calendarService,

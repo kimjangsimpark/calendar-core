@@ -14,7 +14,7 @@ export const fakeData: Schedule[] = [
     content: '이것은 첫번째 스케쥴이다.',
     startDate: new Date('2021-06-01'),
     endDate: new Date('2021-06-03'),
-    isAllDay: true,
+    isAllDay: true
   },
   {
     id: '2',
@@ -22,7 +22,7 @@ export const fakeData: Schedule[] = [
     content: '이것은 두번째 스케쥴이다.',
     startDate: new Date('2021-06-04'),
     endDate: new Date('2021-06-11'),
-    isAllDay: true,
+    isAllDay: true
   },
   {
     id: '3',
@@ -30,7 +30,7 @@ export const fakeData: Schedule[] = [
     content: '이것은 세번째 스케쥴이다.',
     startDate: new Date('2021-06-18'),
     endDate: new Date('2021-06-29'),
-    isAllDay: true,
+    isAllDay: true
   },
   {
     id: '4',
@@ -38,7 +38,7 @@ export const fakeData: Schedule[] = [
     content: '이것은 네번째 스케쥴이다.',
     startDate: new Date('2021-06-20'),
     endDate: new Date('2021-06-22'),
-    isAllDay: true,
+    isAllDay: true
   },
   {
     id: '5',
@@ -46,6 +46,22 @@ export const fakeData: Schedule[] = [
     content: '이것은 다섯번째 스케쥴이다.',
     startDate: new Date('2021-06-03'),
     endDate: new Date('2021-06-19'),
-    isAllDay: true,
+    isAllDay: true
   },
+  {
+    id: '6',
+    name: '여셧번째 스케쥴',
+    content: '이것은 다섯번째 스케쥴이다.',
+    startDate: new Date('2021-06-19'),
+    endDate: new Date('2021-06-20'),
+    isAllDay: true
+  },
+  {
+    id: '7',
+    name: '여셧번째 스케쥴',
+    content: '이것은 다섯번째 스케쥴이다.',
+    startDate: new Date('2021-06-30'),
+    endDate: new Date('2021-07-10'),
+    isAllDay: true
+  }
 ];

@@ -32,6 +32,7 @@ export class ScheduleBarComponent extends CustomElement {
       this.scheduleVM.endDate.toLocaleDateString();
     console.dir($scheduleName);
     this.style.top = String(this.scheduleVM.top) + 'px';
+    this.style.left = String(this.scheduleVM.left) + '%';
   }
 
   public attributeChangedCallback(
