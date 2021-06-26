@@ -1,5 +1,5 @@
 {
-  "name": "markdown-editor",
+  "name": "kjsp-calendar-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kimjangsimpark/markdown-editor"
+    "url": "https://github.com/kimjangsimpark/calendar-core"
   },
+  "files": [
+    "dist"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
