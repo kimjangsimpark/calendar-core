@@ -73,10 +73,10 @@ module.exports = {
     }),
   ],
   output: {
-    library: 'MarkdownEditor',
+    library: 'kjsp-calendar-core',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, './dist'),
-    filename: 'markdown-editor.min.js'
+    filename: 'kjsp-calendar-core.min.js'
   },
   devtool: 'inline-source-map',
   optimization: {
