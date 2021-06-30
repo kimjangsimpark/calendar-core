@@ -120,7 +120,7 @@ export class ScheduleWeekContainerComponent extends CustomElement {
       this.scheduleVMList.sort((a, b) => {
         return b.getDuration - a.getDuration;
       });
-      console.log(` ${index} :스켇쥴리스트`, this.scheduleVMList);
+      console.log(` ${index} :스켇줄리스트`, this.scheduleVMList);
       this.scheduleBarList = new Array<ScheduleBarComponent>();
       this.scheduleVMList.forEach((schedule, index) => {
         schedule.top = (index + 1) * UnitsForSchedule.top;
