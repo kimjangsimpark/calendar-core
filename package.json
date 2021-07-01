@@ -1,6 +1,6 @@
 {
   "name": "kjsp-calendar-core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "build/index.prod.js",
   "types": "build/index.prod.d.ts",
