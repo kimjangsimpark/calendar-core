@@ -1,6 +1,6 @@
 {
   "name": "kjsp-calendar-core",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "build/index.prod.js",
   "types": "build/index.prod.d.ts",
@@ -13,7 +13,8 @@
     "url": "https://github.com/kimjangsimpark/calendar-core"
   },
   "files": [
-    "dist"
+    "dist",
+    "build"
   ],
   "author": "",
   "license": "ISC",
