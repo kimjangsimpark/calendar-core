@@ -1,9 +1,9 @@
 {
   "name": "kjsp-calendar-core",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "build/index.prod.js",
-  "types": "build/index.prod.d.ts",
+  "types": "dist/index.ts",
   "scripts": {
     "dev": "webpack serve",
     "build": "tsc && cross-env NODE_ENV=production webpack"
@@ -20,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.13.16",
+    "@ns0m/witty-webpack-declaration-files": "^2.0.0",
     "@types/node": "^10.17.58",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",

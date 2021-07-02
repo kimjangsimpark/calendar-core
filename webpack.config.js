@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const DeclarationFilesPlugin = require("@ns0m/witty-webpack-declaration-files");
 
 const prod = process.env.NODE_ENV === "production";
 
@@ -48,7 +49,6 @@ module.exports = {
             {
                 test: /\.(scss)?$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     {
                         loader: "css-loader",
                     },
@@ -67,24 +67,28 @@ module.exports = {
         host: "0.0.0.0",
     },
     plugins: [
+        new DeclarationFilesPlugin({
+            merge: true,
+            exclude: []
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             inject: "body",
             template: "src/index.dev.html",
-        }),
-        new MiniCssExtractPlugin({
-            filename: "kjsp-calendar-core.min.css",
         }),
     ],
     output: {
         library: "kjsp-calendar-core",
         libraryTarget: "umd",
         path: path.resolve(__dirname, "./dist"),
-        filename: "kjsp-calendar-core.min.js",
+        filename: "[name].[contenthash].js",
     },
     devtool: "inline-source-map",
     optimization: {
-        minimize: true,
+        minimize: false,
         minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+        // splitChunks: {
+        //     chunks: 'all',
+        //   },
     },
 };
