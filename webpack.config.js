@@ -5,6 +5,7 @@ const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const DeclarationFilesPlugin = require("@ns0m/witty-webpack-declaration-files");
+var glob = require("glob");
 
 const prod = process.env.NODE_ENV === "production";
 
@@ -17,10 +18,24 @@ function publicPathResolver(resourcePath, context) {
     const posixPath = relativePath.split(path.win32.sep).join(path.posix.sep);
     return posixPath + "/";
 }
+const entryFiles = glob.sync('./src/**/*.ts').reduce((previousValue, currentValue, currentIndex, array) => {
+    console.log(currentValue)
+
+    if(currentValue.includes('.d.ts')) return {...previousValue}
+    return typeof previousValue === 'string' ?
+      {
+        [path.basename(previousValue, path.extname(previousValue))]: previousValue,
+        [path.basename(currentValue, path.extname(currentValue))]: currentValue
+      }
+      :
+      { ...previousValue, [path.basename(currentValue, path.extname(currentValue))]: currentValue }
+  })
 
 module.exports = {
     mode: "development",
-    entry: prod ? "./src/index.prod.ts" : "./src/index.dev.ts",
+    // entry: prod ? glob.sync("./src/**/*.ts") : "./src/index.dev.ts",
+    // entry: prod ? entryFiles : "./src/index.dev.ts",
+    entry: prod ? './src/index.prod.ts' : "./src/index.dev.ts",
     module: {
         rules: [
             {
@@ -69,7 +84,7 @@ module.exports = {
     plugins: [
         new DeclarationFilesPlugin({
             merge: true,
-            exclude: []
+            filename: 'index.prod.d.ts',
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -81,12 +96,12 @@ module.exports = {
         library: "kjsp-calendar-core",
         libraryTarget: "umd",
         path: path.resolve(__dirname, "./dist"),
-        filename: "[name].[contenthash].js",
+        filename: "index.prod.js",
     },
     devtool: "inline-source-map",
     optimization: {
-        minimize: false,
-        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+        // minimize: false,
+        // minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
         // splitChunks: {
         //     chunks: 'all',
         //   },

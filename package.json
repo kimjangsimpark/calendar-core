@@ -1,12 +1,13 @@
 {
   "name": "kjsp-calendar-core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
-  "main": "build/index.prod.js",
-  "types": "dist/index.ts",
+  "main": "dist/index.prod.js",
+  "types": "dist/index.prod.d.ts",
   "scripts": {
     "dev": "webpack serve",
-    "build": "tsc && cross-env NODE_ENV=production webpack"
+    "build": "tsc && cross-env NODE_ENV=production webpack",
+    "webpack": "cross-env NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "eslint-loader": "^4.0.2",
     "eslint-plugin-html": "^6.1.2",
     "file-loader": "^6.2.0",
+    "glob": "^7.1.7",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
     "http-server": "^0.12.3",
