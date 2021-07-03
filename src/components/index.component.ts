@@ -4,11 +4,10 @@ import './toolbar/toolbar.component';
 import { Component, CustomElement } from '../engines/component';
 import template from './index.component.html';
 import style from './index.component.scss';
-import { CalendarService } from '../service/calendar.service';
+import { CalendarService, Schedule } from '../service/calendar.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { WeekContainerComponent } from './week/week-container.component';
 import { OverlayComponent } from './overlay/overlay.component';
-import { fakeData } from '../data/fake.data';
 
 enum IndexComponentParams {
   YEAR = 'year',
@@ -60,8 +59,6 @@ export class IndexComponent extends CustomElement {
       this.dispatchEvent(event);
     });
 
-    // insert fake data
-    this.calendarService.setSelectedMonthSchedule(fakeData);
   }
 
   public attributeChangedCallback(
@@ -97,5 +94,9 @@ export class IndexComponent extends CustomElement {
   public setPreviousMonth(): void {
     const current = this.calendarService.selectedYearAndMonth.getValue();
     this.calendarService.setSelectedMonth(current.getMonth() - 1);
+  }
+
+  public setSelectedMonthSchedule(scheduleList:Schedule[]):void{
+    this.calendarService.setSelectedMonthSchedule(scheduleList)
   }
 }

@@ -105,7 +105,11 @@ export class ScheduleWeekContainerComponent extends CustomElement {
   ) {
     super();
     this.calendarService.selectedYearAndMonth.subscribe(this.getSubscriber());
-    this.calendarService.selectedMonthSchedules.subscribe((scheduleList) => {
+    this.calendarService.selectedMonthSchedules.subscribe(this.getScheduleSubscriber());
+  }
+
+  private getScheduleSubscriber() {
+    return (scheduleList:Schedule[]) => {
       this.scheduleVMList = scheduleList.reduce((result, schedule) => {
         if (
           schedule.endDate.getTime() < this.startDate.getTime() ||
@@ -120,7 +124,6 @@ export class ScheduleWeekContainerComponent extends CustomElement {
       this.scheduleVMList.sort((a, b) => {
         return b.getDuration - a.getDuration;
       });
-      console.log(` ${index} :스켇줄리스트`, this.scheduleVMList);
       this.scheduleBarList = new Array<ScheduleBarComponent>();
       this.scheduleVMList.forEach((schedule, index) => {
         schedule.top = (index + 1) * UnitsForSchedule.top;
@@ -150,7 +153,7 @@ export class ScheduleWeekContainerComponent extends CustomElement {
         this.scheduleBarList.push(scheduleBar);
         this.shadowRoot.append(scheduleBar);
       });
-    });
+    };
   }
 
   private getSubscriber(): (date: Date) => void {

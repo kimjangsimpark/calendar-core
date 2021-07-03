@@ -64,7 +64,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin({
-            // dangerouslyAllowCleanPatternsOutsideProject: true,
+            dangerouslyAllowCleanPatternsOutsideProject: true,
         }),
         new HtmlWebpackPlugin({
             inject: "body",
