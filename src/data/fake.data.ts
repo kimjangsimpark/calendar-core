@@ -20,7 +20,7 @@ export const fakeData: Schedule[] = [
     id: '2',
     name: '두번째 스케쥴',
     content: '이것은 두번째 스케쥴이다.',
-    startDate: new Date('2021-06-04'),
+    startDate: new Date('2021-05-31'),
     endDate: new Date('2021-06-11'),
     isAllDay: true
   },
@@ -58,9 +58,9 @@ export const fakeData: Schedule[] = [
   },
   {
     id: '7',
-    name: '여셧번째 스케쥴',
-    content: '이것은 다섯번째 스케쥴이다.',
-    startDate: new Date('2021-06-30'),
+    name: '일곱번째 스케쥴',
+    content: '이것은 일곱번째 스케쥴이다.',
+    startDate: new Date('2021-07-02'),
     endDate: new Date('2021-07-10'),
     isAllDay: true
   }

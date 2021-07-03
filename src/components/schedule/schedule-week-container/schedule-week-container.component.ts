@@ -109,7 +109,7 @@ export class ScheduleWeekContainerComponent extends CustomElement {
   }
 
   private getScheduleSubscriber() {
-    return (scheduleList:Schedule[]) => {
+    return (scheduleList: Schedule[]) => {
       this.scheduleVMList = scheduleList.reduce((result, schedule) => {
         if (
           schedule.endDate.getTime() < this.startDate.getTime() ||
@@ -127,25 +127,22 @@ export class ScheduleWeekContainerComponent extends CustomElement {
       this.scheduleBarList = new Array<ScheduleBarComponent>();
       this.scheduleVMList.forEach((schedule, index) => {
         schedule.top = (index + 1) * UnitsForSchedule.top;
-        if (this.startDate.getDate() > this.endDate.getDate()) {
-          if (this.endDate.getMonth() !== schedule.startDate.getMonth()) {
-            schedule.left =
-              (schedule.startDate.getDate() - this.startDate.getDate() >= 0
-                ? schedule.startDate.getDate() - this.startDate.getDate()
-                : 0) * UnitsForSchedule.left;
-          } else {
-            schedule.left =
-              (schedule.startDate.getDate() - this.startDate.getDate() >= 0
-                ? schedule.startDate.getDate() - this.startDate.getDate()
-                : 0) * UnitsForSchedule.left;
-          }
+        if (this.startDate.getDate() > this.endDate.getDate() &&
+          this.endDate.getMonth() === schedule.startDate.getMonth()) {
+          schedule.left =
+            (6 - (this.endDate.getDate() - schedule.startDate.getDate()) >= 0
+              ? 6 - (this.endDate.getDate() - schedule.startDate.getDate())
+              : 0) * UnitsForSchedule.left;
+          console.log('여봐라~', 6 - (this.endDate.getDate() - schedule.startDate.getDate()));
+          console.log('여봐라~2', this.endDate.getDate());
+          console.log('여봐라~3', schedule.startDate.getDate());
+
         } else {
           schedule.left =
             (schedule.startDate.getDate() - this.startDate.getDate() >= 0
               ? schedule.startDate.getDate() - this.startDate.getDate()
               : 0) * UnitsForSchedule.left;
         }
-        console.log('duration', schedule.getDuration);
         const scheduleBar = new ScheduleBarComponent(
           this.calendarService,
           schedule
@@ -179,9 +176,6 @@ export class ScheduleWeekContainerComponent extends CustomElement {
         UnitsForSchedule.week * (this.index + 1) -
         1
       );
-      console.log('스타트데이트:', this.startDate);
-
-      console.log('엔드데이트22:', this.endDate);
     };
   }
 }

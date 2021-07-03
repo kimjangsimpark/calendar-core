@@ -22,7 +22,6 @@ export class ScheduleBarComponent extends CustomElement {
     private scheduleVM: ScheduleViewModel
   ) {
     super();
-    console.log(this.scheduleVM);
     const $scheduleName = this.shadowRoot.querySelector('#schedule-name');
     $scheduleName.textContent =
       this.scheduleVM.getName +
@@ -30,7 +29,6 @@ export class ScheduleBarComponent extends CustomElement {
       this.scheduleVM.startDate.toLocaleDateString() +
       ' ~ ' +
       this.scheduleVM.endDate.toLocaleDateString();
-    console.dir($scheduleName);
     this.style.top = String(this.scheduleVM.top) + 'px';
     this.style.left = String(this.scheduleVM.left) + '%';
   }
