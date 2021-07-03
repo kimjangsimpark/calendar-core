@@ -80,6 +80,7 @@ module.exports = {
         libraryTarget: "umd",
         path: path.resolve(__dirname, "./dist"),
         filename: "index.prod.js",
+        globalObject: 'this'
     },
     devtool: "inline-source-map",
     optimization: {
