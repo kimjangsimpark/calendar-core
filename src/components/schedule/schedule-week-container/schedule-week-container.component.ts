@@ -133,15 +133,16 @@ export class ScheduleWeekContainerComponent extends CustomElement {
             (6 - (this.endDate.getDate() - schedule.startDate.getDate()) >= 0
               ? 6 - (this.endDate.getDate() - schedule.startDate.getDate())
               : 0) * UnitsForSchedule.left;
-          console.log('여봐라~', 6 - (this.endDate.getDate() - schedule.startDate.getDate()));
-          console.log('여봐라~2', this.endDate.getDate());
-          console.log('여봐라~3', schedule.startDate.getDate());
-
+        } else if (this.startDate.getMonth() > schedule.startDate.getMonth()) {
+          schedule.left = 0;
         } else {
           schedule.left =
             (schedule.startDate.getDate() - this.startDate.getDate() >= 0
               ? schedule.startDate.getDate() - this.startDate.getDate()
               : 0) * UnitsForSchedule.left;
+          console.log((schedule.startDate.getDate() - this.startDate.getDate() >= 0
+            ? schedule.startDate.getDate() - this.startDate.getDate()
+            : 0) * UnitsForSchedule.left);
         }
         const scheduleBar = new ScheduleBarComponent(
           this.calendarService,
