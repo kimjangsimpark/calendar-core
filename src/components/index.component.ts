@@ -18,11 +18,12 @@ enum IndexComponentParams {
   selector: 'kjsp-index',
   template: template,
   style: style,
-  root: true,
+  root: true
 })
 export class IndexComponent extends CustomElement {
   public calendarService: CalendarService = new CalendarService();
   public date = new Date();
+  // private readonly $toolbar: ToolbarComponent;
 
   public static get observedAttributes(): string[] {
     return [IndexComponentParams.YEAR, IndexComponentParams.MONTH];
@@ -30,8 +31,11 @@ export class IndexComponent extends CustomElement {
 
   public constructor() {
     super();
+    // this.$toolbar = new ToolbarComponent(this.calendarService);
+    // this.shadowRoot.prepend(this.$toolbar);
     const $toolbar = new ToolbarComponent(this.calendarService);
     this.shadowRoot.prepend($toolbar);
+    this.offToolbar();
 
     const $overlay = new OverlayComponent(this.calendarService);
     const $calendarWrapper = this.shadowRoot.getElementById('calendar-wrapper');
@@ -52,9 +56,9 @@ export class IndexComponent extends CustomElement {
       $overlay.clear();
       const event = new CustomEvent('yearAndMonthChange', {
         detail: {
-          date: date,
+          date: date
         },
-        composed: true,
+        composed: true
       });
       this.dispatchEvent(event);
     });
@@ -96,7 +100,16 @@ export class IndexComponent extends CustomElement {
     this.calendarService.setSelectedMonth(current.getMonth() - 1);
   }
 
-  public setSelectedMonthSchedule(scheduleList:Schedule[]):void{
-    this.calendarService.setSelectedMonthSchedule(scheduleList)
+  public setSelectedMonthSchedule(scheduleList: Schedule[]): void {
+    this.calendarService.setSelectedMonthSchedule(scheduleList);
+  }
+
+  public offToolbar(): void {
+    const $toolbar = this.shadowRoot.querySelector<ToolbarComponent>('kjsp-toolbar');
+    $toolbar.style.display = 'none';
+  }
+  public onToolbar():void{
+    const $toolbar = this.shadowRoot.querySelector<ToolbarComponent>('kjsp-toolbar');
+    $toolbar.style.display = 'flex';
   }
 }
